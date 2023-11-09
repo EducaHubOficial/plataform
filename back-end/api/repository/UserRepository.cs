@@ -24,7 +24,7 @@ namespace api.Repository
             dbContext.SaveChanges();
         }
 
-        public Usuario getUser(string email, string password) {
+        public Usuario? getUser(string email, string password) {
             var userResponse = dbContext.Usuarios.FirstOrDefault(user => user.Email == email);
             if (userResponse != null) {
                 string hash = password + userResponse.Salt;
