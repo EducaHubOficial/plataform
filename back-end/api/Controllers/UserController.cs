@@ -6,6 +6,7 @@ using api.Model;
 using api.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging.Abstractions;
 
@@ -23,7 +24,7 @@ namespace api.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Usuario>> Get()
+        public ActionResult<List<Usuario>> GetAll()
         {
             try
             {
@@ -54,6 +55,21 @@ namespace api.Controllers
             }catch (Exception ex)
             {
                 return BadRequest(new { message = $"Não foi possível cadastrar o usuário. " + ex.Message });
+            }
+        }
+
+        [HttpGet ("{id}")]
+        public ActionResult<Usuario> GetUser(int id) {
+            try
+            {
+                var userResponse = userRepository.getUser(id);
+                if (userResponse == null) return NotFound(new { message = $"Usuário não existe."});
+                return userResponse;
+            }
+            catch (Exception ex)
+            {
+                
+                return NotFound(new { message = $"Não foi possível localizar o usuário. " + ex.Message });
             }
         }
     }

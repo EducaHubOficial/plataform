@@ -24,6 +24,10 @@ namespace api.Repository
             dbContext.SaveChanges();
         }
 
+        public Usuario? getUser(int id) {
+            return dbContext.Usuarios.FirstOrDefault(user => user.Id == id);
+        }
+
         public Usuario? getUser(string email, string password) {
             var userResponse = dbContext.Usuarios.FirstOrDefault(user => user.Email == email);
             if (userResponse != null) {
