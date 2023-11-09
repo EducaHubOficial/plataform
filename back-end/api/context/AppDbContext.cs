@@ -108,6 +108,37 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("FK_AcessosUsuarios_Usuarios");
         });
 
+        modelBuilder.Entity<Aula>(entity =>
+        {
+            entity.HasKey(e => new { e.MateriasId, e.Id });
+
+            entity.Property(e => e.MateriasId)
+                .HasColumnType("numeric(18, 0)")
+                .HasColumnName("materiasId");
+            entity.Property(e => e.Id)
+                .HasColumnType("numeric(18, 0)")
+                .HasColumnName("id");
+            entity.Property(e => e.Conteudo)
+                .HasColumnType("text")
+                .HasColumnName("conteudo");
+            entity.Property(e => e.DataCadastro)
+                .HasColumnType("datetime")
+                .HasColumnName("dataCadastro");
+            entity.Property(e => e.UsuariosId)
+                .HasColumnType("numeric(18, 0)")
+                .HasColumnName("usuariosId");
+
+            entity.HasOne(d => d.IdNavigation).WithMany(p => p.Aulas)
+                .HasForeignKey(d => d.Id)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Aulas_Usuarios");
+
+            entity.HasOne(d => d.Materias).WithMany(p => p.Aulas)
+                .HasForeignKey(d => d.MateriasId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Aulas_Materias");
+        });
+
         modelBuilder.Entity<Grupo>(entity =>
         {
             entity.Property(e => e.Id)
@@ -160,6 +191,27 @@ public partial class AppDbContext : DbContext
                 .HasForeignKey(d => d.UsuariosId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_GruposUsuarios_Usuarios");
+        });
+
+        modelBuilder.Entity<Materia>(entity =>
+        {
+            entity.Property(e => e.Id)
+                .HasColumnType("numeric(18, 0)")
+                .HasColumnName("id");
+            entity.Property(e => e.DataCadastro)
+                .HasColumnType("datetime")
+                .HasColumnName("dataCadastro");
+            entity.Property(e => e.Titulo)
+                .HasMaxLength(150)
+                .IsUnicode(false)
+                .HasColumnName("titulo");
+            entity.Property(e => e.UsuariosId)
+                .HasColumnType("numeric(18, 0)")
+                .HasColumnName("usuariosId");
+
+            entity.HasOne(d => d.Usuarios).WithMany(p => p.Materia)
+                .HasForeignKey(d => d.UsuariosId)
+                .HasConstraintName("FK_Materias_Usuarios");
         });
 
         modelBuilder.Entity<Usuario>(entity =>

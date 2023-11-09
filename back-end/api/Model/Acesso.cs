@@ -1,4 +1,7 @@
-﻿namespace api.Model;
+﻿using System;
+using System.Collections.Generic;
+
+namespace api.Model;
 
 public partial class Acesso
 {

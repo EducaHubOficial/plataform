@@ -1,1 +1,1 @@
-dotnet ef dbcontext scaffold "Server=Server=LOCALHOST, 1433;Initial Catalog=apis;User Id=sa;Password=123;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -o Model
+dotnet ef dbcontext scaffold "Server=LOCALHOST, 1433;Initial Catalog=apis;User Id=sa;Password=123;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -o Model

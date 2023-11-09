@@ -1,4 +1,7 @@
-﻿namespace api.Model;
+﻿using System;
+using System.Collections.Generic;
+
+namespace api.Model;
 
 public partial class Usuario
 {
@@ -31,9 +34,13 @@ public partial class Usuario
 
     public virtual ICollection<AcessosUsuario> AcessosUsuarioUsuarios { get; set; } = new List<AcessosUsuario>();
 
+    public virtual ICollection<Aula> Aulas { get; set; } = new List<Aula>();
+
     public virtual ICollection<Grupo> Grupos { get; set; } = new List<Grupo>();
 
     public virtual ICollection<GruposUsuario> GruposUsuarioUsuarioResponsavelNavigations { get; set; } = new List<GruposUsuario>();
 
     public virtual ICollection<GruposUsuario> GruposUsuarioUsuarios { get; set; } = new List<GruposUsuario>();
+
+    public virtual ICollection<Materia> Materia { get; set; } = new List<Materia>();
 }
