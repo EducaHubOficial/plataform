@@ -20,9 +20,11 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
+    - name: List diretory
+      run: dir
     - name: Restore dependencies
-      run: dotnet restore "../../back-end/api/api.csproj"
+      run: dotnet restore "/back-end/api/api.csproj"
     - name: Build
-      run: dotnet build ".../../back-end/api/api.csproj" --no-restore
+      run: dotnet build "/back-end/api/api.csproj" --no-restore
     - name: Test
-      run: dotnet test "../../back-end/api/api.csproj" --no-build --verbosity normal
+      run: dotnet test "/back-end/api/api.csproj" --no-build --verbosity normal
