@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using api.Model;
 using api.Repository;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging.Abstractions;
 
@@ -41,6 +42,19 @@ namespace api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
 
+        }
+        [HttpPost]
+        public ActionResult<Usuario> Post([FromBody] Usuario usuario){
+             try
+            {
+                userRepository.create(usuario);
+                var location = new Uri(Request.GetEncodedUrl() + "/" + usuario.Email);
+
+                return Created(location, usuario);
+            }catch (Exception ex)
+            {
+                return BadRequest(new { message = $"Não foi possível cadastrar o usuário. " + ex.Message });
+            }
         }
     }
 }
