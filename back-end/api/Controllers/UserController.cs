@@ -35,15 +35,30 @@ namespace api.Controllers
                 }
                 else
                 {
-                    return NotFound();
+                    return NotFound(new { message = "Não há usuário cadastrado." });
                 }
             }
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new { message = $"Não foi possível listar os usuários. " + ex.Message });
             }
-
         }
+        
+        [HttpGet ("{id}")]
+        public ActionResult<Usuario> GetUser(int id) {
+            try
+            {
+                var userResponse = userRepository.getUser(id);
+                if (userResponse == null) return NotFound(new { message = $"Usuário não encontrado."});
+                return Ok(userResponse);
+            }
+            catch (Exception ex)
+            {
+                
+                return NotFound(new { message = $"Não foi possível localizar o usuário. " + ex.Message });
+            }
+        }
+
         [HttpPost]
         public ActionResult<Usuario> Post([FromBody] Usuario usuario){
              try
@@ -55,21 +70,6 @@ namespace api.Controllers
             }catch (Exception ex)
             {
                 return BadRequest(new { message = $"Não foi possível cadastrar o usuário. " + ex.Message });
-            }
-        }
-
-        [HttpGet ("{id}")]
-        public ActionResult<Usuario> GetUser(int id) {
-            try
-            {
-                var userResponse = userRepository.getUser(id);
-                if (userResponse == null) return NotFound(new { message = $"Usuário não existe."});
-                return userResponse;
-            }
-            catch (Exception ex)
-            {
-                
-                return NotFound(new { message = $"Não foi possível localizar o usuário. " + ex.Message });
             }
         }
     }

@@ -12,9 +12,18 @@ namespace api.Controllers
             this.appDbContext = appDbContext;
         }
 
-        public List<Materia> getMaterias()
+        public List<Materia> GetMaterias()
         {
             return appDbContext.Materias.ToList<Materia>();;
+        }
+
+        public Materia? GetMateria(int id) {
+            return appDbContext.Materias.FirstOrDefault(materia => materia.Id == id);
+        }
+
+        public void Created(Materia materia) {
+            appDbContext.Materias.Add(materia);
+            appDbContext.SaveChanges();
         }
     }
 }
