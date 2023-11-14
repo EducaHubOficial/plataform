@@ -40,7 +40,7 @@ namespace api.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = $"Não foi possível listar os usuários. " + ex.Message });
             }
 
         }

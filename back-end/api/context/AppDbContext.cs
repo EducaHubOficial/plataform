@@ -25,6 +25,10 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<Usuario> Usuarios { get; set; }
 
+    public virtual DbSet<Materia> Materias { get; set; }
+
+    public virtual DbSet<Aula> Aulas { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Acesso>(entity =>
